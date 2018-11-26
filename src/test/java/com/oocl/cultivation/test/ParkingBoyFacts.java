@@ -1,9 +1,6 @@
 package com.oocl.cultivation.test;
 
-import com.oocl.cultivation.Car;
-import com.oocl.cultivation.ParkingBoy;
-import com.oocl.cultivation.ParkingLot;
-import com.oocl.cultivation.ParkingTicket;
+import com.oocl.cultivation.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -172,5 +169,25 @@ class ParkingBoyFacts {
         assertSame(car, parkingBoy.fetch(ticket));
     }
 
+    @Test
+    void should_smart_parking_boy_park_cars_to_more_empty_position_parkinglot() {
+        //Given
+        final int lessCapacity = 5;
+        final int moreCapacity = 20;
+        List<ParkingLot> parkingLotsOwned = new ArrayList<>();
+        ParkingLot parkingLotWithLessCapacity = new ParkingLot(lessCapacity);
+        ParkingLot parkingLotWithMoreCapacity = new ParkingLot(moreCapacity);
+        parkingLotsOwned.add(parkingLotWithLessCapacity);
+        parkingLotsOwned.add(parkingLotWithMoreCapacity);
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLotsOwned);
+        Car usersCar = new Car();
+        //When
+        ParkingTicket ticket = smartParkingBoy.park(usersCar);
+        //Then
+        Car carFetchedBack = smartParkingBoy.fetch(ticket);
+        assertSame(usersCar, carFetchedBack);
+
+
+    }
 }
 
