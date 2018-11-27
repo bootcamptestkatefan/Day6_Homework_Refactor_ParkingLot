@@ -19,21 +19,17 @@ public class ParkingBoy {
         this.parkingLots = parkingLots;
     }
 
-    public ParkingLot ParkingLogic() {
+    public ParkingLot findAvailableParkingLot() {
         for (ParkingLot parkingLot : parkingLots) {
-            if (parkingLot.getAvailableParkingPosition() == 0) {
-                continue;
-            } else if (parkingLot.getAvailableParkingPosition() > 0) {
+            if (parkingLot.getAvailableParkingPosition() > 0) {
                 return parkingLot;
-            } else {
-                return null;
             }
         }
         return null;
     }
 
     public ParkingTicket park(Car car) {
-        ParkingLot theSelectedParkingLot = ParkingLogic();
+        ParkingLot theSelectedParkingLot = findAvailableParkingLot();
         if(theSelectedParkingLot != null){
             this.parkingLot = theSelectedParkingLot;
         }
